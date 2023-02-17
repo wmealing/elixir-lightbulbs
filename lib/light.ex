@@ -22,8 +22,6 @@ defmodule Light do
 
   end
 
-
-
   # Callbacks
   @impl true
   def init(state) do

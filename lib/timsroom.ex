@@ -4,33 +4,43 @@ defmodule TimsRoom do
   """
   def go(count) do
 
-    # Start the server, 100 bulbs
-    l = Enum.map(1..count,
+    # Start the server, "count" bulbs
+    working_set = Enum.map(0..count,
       fn _x -> GenServer.start_link(Light, false) end)
 
-    # we just work with the first count.
-    working_set = l
-    |> Enum.take(count)
+    IO.write("  ")
 
-    # Nth person toggles the nth, bulb
-    for n <- 1..count do
-      working_set
-      |> Enum.map_every(n, fn bulb -> Light.toggle(bulb) end)
+    for p <- 0..count do
+      IO.write(p)
+    end
+
+    IO.write("\n")
+
+      # Nth person toggles the nth, bulb
+    for n <- 0..count do
 
       working_set
-      |> Enum.map(fn bulb -> Light.draw(bulb) end )
+      |> Enum.with_index()
+      |> Enum.map_every(n, fn {bulb,idx} ->
+        case idx do
+          0 -> nil
+          _ -> Light.toggle(bulb)
+        end
+      end)
+
+      IO.write(n)
+      IO.write(":")
+
+      working_set
+      |> Enum.map(fn x -> Light.draw(x) end)
+
       IO.write("\n")
     end
 
-    # get the last bulb
-    last_bulb = working_set
+    working_set
     |> Enum.at(-1)
-
-    # print the status of the 64th bulb.
-    Light.print_state(last_bulb)
-
+    |> Light.print_state
 
   end
-
 
 end
