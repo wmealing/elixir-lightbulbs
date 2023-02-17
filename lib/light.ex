@@ -6,6 +6,10 @@ defmodule Light do
     GenServer.call(pid, :toggle)
   end
 
+  def draw({:ok, pid}) do
+    GenServer.call(pid, :draw)
+  end
+
   def print_state({:ok, pid}) do
     result = GenServer.call(pid, :report)
 
@@ -36,5 +40,16 @@ defmodule Light do
   def handle_call(:report, _from, state) do
     {:reply, state, state}
   end
+
+  def handle_call(:draw, _from, state) do
+    case state do
+      false ->
+        IO.write("_")
+      true ->
+        IO.write("*")
+    end
+    {:reply, state, state}
+  end
+
 
 end

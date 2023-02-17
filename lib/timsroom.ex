@@ -16,6 +16,10 @@ defmodule TimsRoom do
     for n <- 1..count do
       working_set
       |> Enum.map_every(n, fn bulb -> Light.toggle(bulb) end)
+
+      working_set
+      |> Enum.map(fn bulb -> Light.draw(bulb) end )
+      IO.write("\n")
     end
 
     # get the last bulb
