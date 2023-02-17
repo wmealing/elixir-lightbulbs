@@ -24,11 +24,16 @@ Erlang/OTP 25 [erts-13.1.4] [source] [64-bit] [smp:8:8] [ds:8:8:10] [async-threa
 Compiling 1 file (.ex)
 Generated lightbulbs app
 Interactive Elixir (1.14.3) - press Ctrl+C to exit (type h() ENTER for help)
+
 iex(1)> TimsRoom.go(64)
 
-
-iex>  Timsroom.go(64)
 LIGHT IS OFF
+
+iex(2)>  Timsroom.go(100)
+
+LIGHT IS OFF
+
+
 
 
 
